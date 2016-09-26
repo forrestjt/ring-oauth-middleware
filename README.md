@@ -4,7 +4,7 @@ A ring wrapper for creating a OAuth2 provider using callbacks. Useful for creati
 Grant types supported currently include
   - password
   - refresh_token
-  - JWT (urn:ietf:params:oauth:grant-type:jwt-bearer) see (RFC 7523)[https://tools.ietf.org/html/rfc7523]
+  - JWT (urn:ietf:params:oauth:grant-type:jwt-bearer) see [RFC 7523](https://tools.ietf.org/html/rfc7523)
 
 Does *not* support registered clients and client ids yet, so clients must be trusted (i.e. using a password grant).
 Support for clients and additional grant types will hopefully be added in the future.
@@ -33,8 +33,6 @@ Basic example:
     {:access_token "1234"}))
 
 ;; If any of the above functions return nil a 401 will be returned
-
-(defn refresh-grant [access-token refresh-token])
 
 (oauth/wrap-oauth-middleware {:realm "api"
                               :pw-grant pw-grant
