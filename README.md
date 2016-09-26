@@ -1,5 +1,7 @@
 # ring-oauth-middleware
 [![Clojars Project](https://img.shields.io/clojars/v/org.clojars.forrestjt/ring-oauth-middleware.svg)](https://clojars.org/org.clojars.forrestjt/ring-oauth-middleware)
+
+
 A ring wrapper for creating a OAuth2 provider using callbacks. Useful for creating an API based backends.
 
 Grant types supported currently include
