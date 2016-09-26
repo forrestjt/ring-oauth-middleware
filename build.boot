@@ -10,7 +10,7 @@
 
 (def version "0.1.0")
 
-(def project {:project 'ring-oauth-middleware
+(def project {:project 'org.clojars.forrestjt/ring-oauth-middleware
               :version version})
 
 (task-options! pom project)
