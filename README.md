@@ -1,4 +1,5 @@
 # ring-oauth-middleware
+[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.forrestjt/ring-oauth-middleware.svg)](https://clojars.org/org.clojars.forrestjt/ring-oauth-middleware)
 A ring wrapper for creating a OAuth2 provider using callbacks. Useful for creating an API based backends.
 
 Grant types supported currently include
@@ -28,17 +29,18 @@ Basic example:
   (if (and (= access-token "1234") (= refresh-token "5678"))
     {:access_token "7890"})
 
-(defn jwt-grant [jwt-hash]  ;; The JWT will be verified using the algorithm specified and a hash of its attributes will
-  (if (= (:sub jwt-hash))   ;; be passed as the first argument
-    {:access_token "1234"}))
+(defn jwt-grant [jwt-hash]  ;; The JWT will be verified using the algorithm
+  (if (= (:sub jwt-hash))   ;; specified and a hash of its attributes will
+    {:access_token "1234"}));; be passed as the first argument
 
 ;; If any of the above functions return nil a 401 will be returned
 
-(oauth/wrap-oauth-middleware {:realm "api"
-                              :pw-grant pw-grant
-                              :ident-lookup ident-lookup
-                              :refresh-grant refresh-grant
-                              :jwt {:alg :es256                      ;; See buddy-sign for algorithms supported
-                                    :private-keyfile "ecprivkey.pem" ;; Create keys using OpenSSH - see https://funcool.github.io/buddy-sign/latest/#generate-keypairs
-                                    :public-keyfile "ecpubkey.pem"}}])
+(oauth/wrap-oauth-middleware handler {:realm "api"
+                                      :pw-grant pw-grant
+                                      :ident-lookup ident-lookup
+                                      :refresh-grant refresh-grant
+                                      :jwt {:alg :es256                      ;; See buddy-sign for algorithms supported
+                                            :private-keyfile "ecprivkey.pem" ;; Create keys using OpenSSH
+                                            ;; see https://funcool.github.io/buddy-sign/latest/#generate-keypairs
+                                            :public-keyfile "ecpubkey.pem"}}])
 ```
