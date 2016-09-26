@@ -10,7 +10,7 @@
 
 (def version "0.2.0-SNAPSHOT")
 
-(def project {:project 'org.clojars.forrestjt/ring-oauth-middleware
+(def project {:project 'forrestjt/ring-oauth-middleware
               :description "A ring wrapper for creating a OAuth2 provider."
               :url "http://github.com/forrestjt/ring-oauth-middleware"
               :version version})

@@ -1,5 +1,5 @@
 # ring-oauth-middleware
-[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.forrestjt/ring-oauth-middleware.svg)](https://clojars.org/org.clojars.forrestjt/ring-oauth-middleware)
+[![Clojars Project](https://img.shields.io/clojars/v/forrestjt/ring-oauth-middleware.svg)](https://clojars.org/forrestjt/ring-oauth-middleware)
 
 
 A ring wrapper for creating a OAuth2 provider using callbacks. Useful for creating an API based backends.
@@ -12,7 +12,7 @@ Grant types supported currently include
 Does *not* support registered clients and client ids yet, so clients must be trusted (i.e. using a password grant).
 Support for clients and additional grant types will hopefully be added in the future.
 
-`[ring-oauth-middleware "0.1.0"]`
+Add to project dependencies: `[ring-oauth-middleware "0.1.0"]`
 
 Basic example:
 ```clojure
