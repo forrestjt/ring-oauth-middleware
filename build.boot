@@ -14,8 +14,7 @@
               :version version
               :description "A ring wrapper for creating a OAuth2 provider."
               :url "https://github.com/forrestjt/ring-oauth-middleware"
-              :license {:name "The MIT License"
-                        :url "http://opensource.org/licenses/MIT"}})
+              :license {"The MIT License" "http://opensource.org/licenses/MIT"}})
 
 (task-options! pom project)
 
