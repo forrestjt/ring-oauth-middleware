@@ -46,3 +46,8 @@ Basic example:
                                             ;; see https://funcool.github.io/buddy-sign/latest/#generate-keypairs
                                             :public-keyfile "ecpubkey.pem"}}])
 ```
+
+# Grant Callbacks
+  TODO
+# Token Endpoint
+  TODO

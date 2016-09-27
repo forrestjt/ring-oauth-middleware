@@ -2,7 +2,8 @@
   (:require [buddy.core.keys :as keys]
             [buddy.sign.jwt :as jwt]
             [clojure.string :as str]
-            [ring.util.response :as ring]))
+            [ring.util.response :as ring])
+  (:import [java.util Date]))
 
 (def no-cache {:headers {"cache-control" "no-store" "pragma" "no-cache"}})
 
@@ -44,13 +45,21 @@
     (try
       (cond
         (not (= (:request-method req) :post)) (method-not-allowed-response #{:post})
-        (and (not (nil? pw-grant)) (= grant-type "password")) (token-response realm jwt-opts (pw-grant username password scope))
-        (and (not (nil? jwt-grant)) (= grant-type "urn:ietf:params:oauth:grant-type:jwt-bearer")) (token-response
-                                                                                                   realm jwt-opts
-                                                                                                   (jwt-grant
-                                                                                                     (jwt/unsign (or assertion "") (or (:pubkey jwt-opts) (:secret jwt-opts)) {:alg (:alg jwt-opts)})
-                                                                                                     scope))
-        (and (not (nil? refresh-grant)) (= grant-type "refresh_token")) (token-response realm jwt-opts (refresh-grant token (:refresh_token req-params)))
+
+        (and (not (nil? pw-grant)) (= grant-type "password"))
+        (token-response realm jwt-opts (pw-grant username password scope))
+
+        (and (not (nil? jwt-grant)) (= grant-type "urn:ietf:params:oauth:grant-type:jwt-bearer"))
+        (token-response realm jwt-opts
+          (let [claims (jwt/unsign (or assertion "") (or (:pubkey jwt-opts) (:secret jwt-opts)) {:alg (:alg jwt-opts)})
+                exp (:exp claims)]
+            (if (and exp (.before (Date. exp) (Date.))) (throw (ex-info "Token expired" {:exp exp})))
+            (jwt-grant claims scope)))
+
+
+        (and (not (nil? refresh-grant)) (= grant-type "refresh_token"))
+        (token-response realm jwt-opts (refresh-grant token (:refresh_token req-params)))
+
         :else (error-response "unsupported_grant_type"))
      (catch java.security.SignatureException e (error-response (.getMessage e)))
      (catch clojure.lang.ExceptionInfo e (error-response (.getMessage e))))))
