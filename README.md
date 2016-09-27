@@ -12,7 +12,7 @@ Grant types supported currently include
 Does *not* support registered clients and client ids yet, so clients must be trusted (i.e. using a password grant).
 Support for clients and additional grant types will hopefully be added in the future.
 
-Add to project dependencies: `[ring-oauth-middleware "0.2.0"]`
+Add to project dependencies: `[ring-oauth-middleware "0.2.1"]`
 
 Basic example:
 ```clojure
